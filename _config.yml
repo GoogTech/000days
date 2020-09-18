@@ -102,5 +102,9 @@ theme: zhaoo
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
+### IF throw error info : ERROR Deployer not found: git, 
+### Please install hexo-deployer-git: npm install hexo-deployer-git --save
 deploy:
-  type: ''
+  type: git
+  repo: https://github.com/YUbuntu0109/000days.git
+  branch: master
