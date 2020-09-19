@@ -42,3 +42,23 @@ branches:
 env:
  global:
    - GH_REF: github.com/YUbuntu0109/000days.git
+
+
+#---------------------------------------------------------------------------------------------------------------------------
+# 注意 DAYS 的命令规范，如果含有特殊字符需要加入转字符哟( 符号 "_" 不是特殊字符,但符号 "-" 以及 "数字"... 属于特殊字符哟 ),
+# 否则 Travis 构建控制台会抛出如下红色异常信息:
+# Setting environment variables from repository settings
+# $ export 000DAYS_TOKEN=[secure]
+# We were unable to parse one of your secure environment variables.
+# Please make sure to escape special characters such as ' ' (white space) and $ (dollar symbol) with \ (backslash) .
+# For example, thi$isanexample would be typed as thi\$isanexample. See https://docs.travis-ci.com/user/encryption-keys.
+#
+# 示例一. 如下 Travis 构建控制台抛出错误信息的原因 : 没有对 DAYS-TOKEN 其中的特殊字符 "-" 进行转义
+# $ git push --force --quiet "https://${DAYS-TOKEN}@${GH_REF}" master:master
+# remote: Invalid username or password.
+# fatal: Authentication failed for 'https://DAYS-TOKEN@github.com/YUbuntu0109/000days.git/'
+#
+# 示例二. 如下 Travis 构建控制台抛出错误信息的原因 : "数字" 也属于特殊字符哟,继而也需要进行转义
+# $ git push --force --quiet "https://${000DAYS_TOKEN}@${GH_REF}" master:master
+# /home/travis/.travis/functions: line 109: https://${000DAYS_TOKEN}@${GH_REF}: bad substitution
+#---------------------------------------------------------------------------------------------------------------------------
