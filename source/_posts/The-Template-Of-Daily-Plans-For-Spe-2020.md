@@ -1,7 +1,7 @@
 ---
 title: The Template Of Daily Plans For Spe 2020
 date: 2020-09-18 19:28:48
-image: /images/template-spe-2020.png
+image: /images/testing2.png
 tags: Spe 2020
 ---
 
