@@ -33,7 +33,7 @@ after_script:
   - git config user.email "Gentleman_0109@outlook.com"
   - git add .
   - git commit -m ":rocket:update my daily plans"
-  - git push --force --quiet "https://${000DAYS}@${GH_REF}" master:master
+  - git push --force --quiet "https://${DAYS}@${GH_REF}" master:master
 
 # E: Build LifeCycle
 branches:
