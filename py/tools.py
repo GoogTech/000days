@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-20 19:44:29
+LastEditTime: 2020-09-20 19:57:17
 Description: use a text of daily plans to generate a picture
 Reference: https://blog.csdn.net/www89574622/article/details/87974931
 Reference: https://selenium-python-zh.readthedocs.io/en/latest/locating-elements.html#class-name
@@ -66,7 +66,7 @@ class Tools:
                   fo.close() # 关闭连接
             except FileNotFoundError as e: print('❌: not found the coverTemplatePath \n')
 
-      ''' '''
+      ''' 读取当月日计划模板中的内容,并将其写入到新生成的 Hexo 文章中 '''
       def writeTemplate(self, filePath, conent):
             try:
                   fo = open(filePath, "a", encoding='UTF-8')
