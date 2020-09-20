@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-20 17:53:50
+LastEditTime: 2020-09-20 18:37:02
 Description: use a text of daily plans to generate a picture
 Reference: https://blog.csdn.net/www89574622/article/details/87974931
 Reference: https://selenium-python-zh.readthedocs.io/en/latest/locating-elements.html#class-name
@@ -149,20 +149,26 @@ class Tools:
 
       ''' GitHub 提交程序 '''
       def gitPush(self, commitMsg):
-            print(subprocess.getoutput('git status'))
-            print('✅: the command of <git status> be executed successfully \n')
+            # git status
+            # print(subprocess.getoutput('git status'))
+            # print('✅: the command of <git status> be executed successfully \n\n')
+            # git pull origin Hexobackup
             # print(subprocess.getoutput('git pull origin Hexobackup'))
             # print('✅: the command of <git pull origin Hexobackup> be executed successfully \n')
-            print(subprocess.getoutput('git add .'))
-            print('✅: the command of <git add .> be executed successfully \n')
-            print(subprocess.getoutput('git commit -m  " ' + commitMsg  + ' " '))
-            print('git commit -m  " ' + commitMsg  + ' " ')
-            print('✅: the command of <git commit - m> be executed successfully \n')
-            print(subprocess.getoutput('git log -3'))
-            print('✅: the command of <git log -3> be executed successfully \n')
-            # print(subprocess.getoutput('git push origin'))
-            # subprocess.Popen('git push origin', shell=True)
-            # print('✅: the command of <git push origin> be executed successfully \n')
+            # git add .
+            # print(subprocess.getoutput('git add .'))
+            # print('✅: the command of <git add .> be executed successfully \n\n')
+            # git commit -m 'this is commit info'
+            print(subprocess.getoutput('git commit -a -m' + ' " ' + commitMsg + ' " '))
+            print('git commit -m' + ' " ' + commitMsg + ' " ') # git commit -m 'this is a testing commit'
+            print('✅: the command of <git commit - m> be executed successfully \n\n')
+            # git push origin Hexobackup
+            # print(subprocess.getoutput('git push origin Hexobackup'))
+            print(subprocess.getoutput('git push origin'))
+            print('✅: the command of <git push origin> be executed successfully \n\n')
+            # git log -3
+            # print(subprocess.getoutput('git log -3'))
+            # print('✅: the command of <git log -3> be executed successfully \n\n')
 
 
 tool = Tools('coverTemplate.md', 'Day002', 'yellow') 
@@ -177,4 +183,4 @@ tool = Tools('coverTemplate.md', 'Day002', 'yellow')
 # tool.hexoTesting()
 
 # 将新添加的文件 Push 到远程 Github Repo, 参入的参数为 commit 的说明信息
-tool.gitPush('❌ this is a testing commit')
+tool.gitPush("commited by python and its a testing")
