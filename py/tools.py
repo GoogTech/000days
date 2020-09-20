@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-20 17:10:12
+LastEditTime: 2020-09-20 17:53:50
 Description: use a text of daily plans to generate a picture
 Reference: https://blog.csdn.net/www89574622/article/details/87974931
 Reference: https://selenium-python-zh.readthedocs.io/en/latest/locating-elements.html#class-name
@@ -149,12 +149,20 @@ class Tools:
 
       ''' GitHub 提交程序 '''
       def gitPush(self, commitMsg):
+            print(subprocess.getoutput('git status'))
+            print('✅: the command of <git status> be executed successfully \n')
+            # print(subprocess.getoutput('git pull origin Hexobackup'))
+            # print('✅: the command of <git pull origin Hexobackup> be executed successfully \n')
             print(subprocess.getoutput('git add .'))
             print('✅: the command of <git add .> be executed successfully \n')
-            print(subprocess.getoutput('get commit -m ' + commitMsg))
+            print(subprocess.getoutput('git commit -m  " ' + commitMsg  + ' " '))
+            print('git commit -m  " ' + commitMsg  + ' " ')
             print('✅: the command of <git commit - m> be executed successfully \n')
-            print(subprocess.getoutput('git push origin Hexobackup'))
-            print('✅: the command of <git push origin Hexobackup> be executed successfully \n')
+            print(subprocess.getoutput('git log -3'))
+            print('✅: the command of <git log -3> be executed successfully \n')
+            # print(subprocess.getoutput('git push origin'))
+            # subprocess.Popen('git push origin', shell=True)
+            # print('✅: the command of <git push origin> be executed successfully \n')
 
 
 tool = Tools('coverTemplate.md', 'Day002', 'yellow') 
