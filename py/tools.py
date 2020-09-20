@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-20 18:50:55
+LastEditTime: 2020-09-20 19:14:40
 Description: use a text of daily plans to generate a picture
 Reference: https://blog.csdn.net/www89574622/article/details/87974931
 Reference: https://selenium-python-zh.readthedocs.io/en/latest/locating-elements.html#class-name
@@ -34,7 +34,7 @@ class Tools:
             # 当月日计划模板路径
             self.planTemplatePath = self.projectPath + "\\template\\daily-plans-for-spe-2020\\"
             # 封面图片存储路径
-            self.coverPicDownloadPath = self.projectPath + "\\themes\\zhaoo\\source\\images\\2020" + coverPic
+            self.coverPicDownloadPath = self.projectPath + "\\themes\\zhaoo\\source\\images\\2020\\" + coverPic
             # https://carbon.now.sh/ 固定样式的请求地址
             rgba = self.bg()
             self.requestUrl = "https://carbon.now.sh/?bg=" + rgba[coverBackground] + "&t=one-light" \
@@ -78,7 +78,7 @@ class Tools:
       ''' 点击网页中图片的下载按钮 '''      
       def clickButton(self):
             # 初始化 https://carbon.now.sh/ 网站链接
-            url = self.requestUrl + parse.quote(self.readTemplate())
+            url = self.requestUrl + parse.quote(self.readTemplate(self.coverTemplatePath))
             # 反解码查看结果格式是否正确
             print('✅: check out resquest url: \n'+ parse.unquote(url))
             # 点击网页中的图片下载按钮
@@ -159,16 +159,16 @@ class Tools:
             subprocess.Popen('git log -3', shell=True)
 
 
-tool = Tools('coverTemplate.md', 'Day002', 'yellow') 
+tool = Tools('coverTemplate.md', 'Day100', 'red') 
 
 # 传入参数为: 模板文件,用于存储封面图片的文件夹,封面背景颜色
 # tool.generateCoverPic()
 
 # 传入参数为:新文章的标题,日计划模板文件
-# tool.hexoNew('hexo-new-post', 'template-spe-2020-ch.md')
+# tool.hexoNew('hexo-new-post-1909', 'template-spe-2020-ch.md')
 
 # 运行 Hexo 本地测试程序,即运行命令 hexo clean & hexo generate && hexo server
 # tool.hexoTesting()
 
 # 将新添加的文件 Push 到远程 Github Repo, 参入的参数为 commit 的说明信息
-tool.gitPush("🚨 commited by python and its a testing")
+tool.gitPush("🚨 add hexo-new-post-1909 and its a testing")
