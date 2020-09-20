@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-20 19:40:49
+LastEditTime: 2020-09-20 19:44:29
 Description: use a text of daily plans to generate a picture
 Reference: https://blog.csdn.net/www89574622/article/details/87974931
 Reference: https://selenium-python-zh.readthedocs.io/en/latest/locating-elements.html#class-name
@@ -61,10 +61,10 @@ class Tools:
                   # fo = open(self.coverTemplatePath, "r+", encoding='UTF-8')  # 打开博客封面图的模板文件
                   fo = open(filePath, "r+", encoding='UTF-8')  # 打开博客封面图的模板文件
                   content = fo.read() # 读取文件内容
-                  print('✅: check out the template of daily plans: \n'+ content) # 查看文件内容
+                  print('✅: check out the template of daily plans: \n'+ content + '\n') # 查看文件内容
                   return content; # 返回结果
                   fo.close() # 关闭连接
-            except FileNotFoundError as e: print('❌: not found the coverTemplatePath')
+            except FileNotFoundError as e: print('❌: not found the coverTemplatePath \n')
 
       ''' '''
       def writeTemplate(self, filePath, conent):
@@ -73,14 +73,14 @@ class Tools:
                   fo.write(conent)
                   fo.close()
                   return True
-            except FileNotFoundError as e: print('❌: not found the fromFile or toFile')
+            except FileNotFoundError as e: print('❌: not found the filePath \n')
 
       ''' 点击网页中图片的下载按钮 '''      
       def clickButton(self):
             # 初始化 https://carbon.now.sh/ 网站链接
             url = self.requestUrl + parse.quote(self.readTemplate(self.coverTemplatePath))
             # 反解码查看结果格式是否正确
-            print('✅: check out resquest url: \n'+ parse.unquote(url))
+            print('✅: check out resquest url: \n'+ parse.unquote(url) + '\n')
             # 点击网页中的图片下载按钮
             opt = webdriver.ChromeOptions()
             driver = webdriver.Chrome(options = opt)
@@ -88,7 +88,7 @@ class Tools:
             driver.maximize_window()
             time.sleep(1)
             driver.find_element_by_class_name('jsx-1730877631 ').click()
-            print('✅: picture be downloaded successfully')
+            print('✅: picture be downloaded successfully \n')
             # 图片下载到本地需要时间哟
             time.sleep(30)
 
@@ -100,9 +100,9 @@ class Tools:
             if not isExist:
                   try:
                         os.mkdir(path) # 创建该目录
-                        print("✅: path be crated: " + path)
+                        print("✅: path be crated: " + path + '\n')
                         return path
-                  except FileNotFoundError as e: print('❌: not found the coverPicDownloadPath')
+                  except FileNotFoundError as e: print('❌: not found the coverPicDownloadPath \n')
             else: return path
 
       '''  将下载的图片移动到指定路径 '''
@@ -111,29 +111,29 @@ class Tools:
             fileList = os.listdir(self.chromeDownloadPath)
             fileList.sort(key = lambda fn : os.path.getmtime(self.chromeDownloadPath + fn) if not os.path.isdir(self.chromeDownloadPath + fn) else 0)
             updateTime = datetime.datetime.fromtimestamp(os.path.getmtime(self.chromeDownloadPath + fileList[-1])) # 获取文件时间
-            print('✅: new file name: ' + fileList[-1] + " and created time: " + updateTime.strftime("%Y-%m-%d %H-%M-%S"))
+            print('✅: new file name: ' + fileList[-1] + " and created time: " + updateTime.strftime("%Y-%m-%d %H-%M-%S") + '\n')
             # 移动文件
             shutil.move(self.chromeDownloadPath + fileList[-1], self.mkdir(self.coverPicDownloadPath))
-            print('✅: picture be moved successfully')
+            print('✅: picture be moved successfully \n')
 
       ''' 根据博客模板文件中的内容生成博客封面图片 '''
       def generateCoverPic(self):
             self.readTemplate(self.coverTemplatePath)
             self.clickButton()
             self.moveFile()
-            print('✅: had done and exited')
+            print('✅: had done and exited \n')
 
       ''' 创建今日打卡文章,并将这个月的日计划模板内容读取到此文件中 '''
       def hexoNew(self, postName, planTemplate):
             # same as execute the command: hexo new 'new-post-name'
             print(subprocess.getoutput('hexo new ' + postName))
-            print('✅: new post be created successfully and title is: ' + postName)
+            print('✅: new post be created successfully and title is: ' + postName + '\n')
             # 读取当月每日计划模板文件,并将其内容写入到当前创建的 postName 文章中
             planTemplate = self.planTemplatePath + planTemplate
             templateContent = self.readTemplate(planTemplate)
             newHexoPostPath = self.hexoPostPath + postName + ".md"
             self.writeTemplate(newHexoPostPath, templateContent)
-            print('✅: writed the content of plan template to the <'+ postName +'> succesffully')
+            print('✅: writed the content of plan template to the <'+ postName +'> succesffully \n')
 
       ''' Hexo 本地测试程序 '''
       def hexoTesting(self):
