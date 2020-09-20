@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-20 18:40:51
+LastEditTime: 2020-09-20 18:45:25
 Description: use a text of daily plans to generate a picture
 Reference: https://blog.csdn.net/www89574622/article/details/87974931
 Reference: https://selenium-python-zh.readthedocs.io/en/latest/locating-elements.html#class-name
@@ -157,8 +157,7 @@ class Tools:
             print(subprocess.getoutput('git push origin Hexobackup'))
             print('✅: the command of <git push origin Hexobackup> be executed successfully \n\n')
             # git log -3
-            print(subprocess.getoutput('git log -3'))
-            print('✅: the command of <git log -3> be executed successfully \n\n')
+            subprocess.Popen('git log -3', shell=True)
 
 
 tool = Tools('coverTemplate.md', 'Day002', 'yellow') 
