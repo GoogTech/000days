@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-20 23:36:18
+LastEditTime: 2020-09-20 23:49:10
 Description: use a text of daily plans to generate a picture (v 2.0)
 Reference: https://blog.csdn.net/www89574622/article/details/87974931
 Reference: https://selenium-python-zh.readthedocs.io/en/latest/locating-elements.html#class-name
@@ -69,7 +69,7 @@ class Tools:
       ''' 读取当月日计划模板中的内容,并将其写入到新生成的 Hexo 文章中 '''
       def writeTemplate(self, filePath, conent):
             try:
-                  fo = open(filePath, "a", encoding='UTF-8')
+                  fo = open(filePath, "w", encoding='UTF-8') # fo = open(filePath, "a", encoding='UTF-8') : 为追加写入模式
                   fo.write(conent)
                   fo.close()
                   return True
@@ -165,14 +165,15 @@ class Tools:
        newHexoPostTitle, planTemplateFileName, gitCommitMsg):
           tool = Tools(coverTemplateFileName, moveCoverToDir, coverBgColor)
           tool.generateCoverPic() # 应该将上述的三个参数传入到 generateCoverPic() 函数中
-          print('✅✅✅: generated a cover picture successfully \n\n\n')
+          print('⚡: generated a cover picture successfully \n\n\n')
           tool.hexoNew(newHexoPostTitle, planTemplateFileName)
-          print('✅✅✅: created a new hexo post successfully \n\n\n')
+          print('⚡: created a new hexo post successfully \n\n\n')
           tool.hexoTesting()
-          print('✅✅✅: hexo cleaned && generated and runed hexo server successfully \n\n\n')
+          print('⚡: hexo cleaned && generated and runed hexo server successfully \n\n\n')
+          time.sleep(15)
           tool.gitPush(gitCommitMsg)
-          print('✅✅✅: push these new files to github successfully \n\n\n')
-          print('✅✅✅: Nice ! Everything be done successfully and exited, See you again bro. \n\n\n')
+          print('⚡: push these new files to github successfully \n\n\n')
+          print('⚡: Nice ! Everything be done successfully and exited, See you again bro. \n\n\n')
             
 # tool = Tools('coverTemplate.md', 'Day100', 'red') 
 
@@ -189,4 +190,4 @@ class Tools:
 # tool.gitPush("update tools.py")
 
 # run : 应该将 Tools() 中的三个参数写到 generateCoverPic() 函数中
-Tools('coverTemplate.md', 'Day000', 'red').run('coverTemplate.md', 'red', 'Day000', 'hexo-new-post-2316', 'template-spe-2020-ch.md', '🚨 add hexo-new-post-2316.md')
+Tools('coverTemplate.md', 'Day000', 'red').run('coverTemplate.md', 'red', 'Day000', 'hexo-new-post-2316', 'template-spe-2020-ch.md', '🚨 testing : this is git commit message')
