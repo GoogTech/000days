@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-21 00:08:32
+LastEditTime: 2020-09-21 00:17:25
 Description: use a text of daily plans to generate a picture (v 2.0)
 Reference: https://blog.csdn.net/www89574622/article/details/87974931
 Reference: https://selenium-python-zh.readthedocs.io/en/latest/locating-elements.html#class-name
@@ -149,8 +149,9 @@ class Tools:
 
       ''' GitHub 提交程序 '''
       def gitPush(self, commitMsg):
-            subprocess.getoutput('git add *') # <git add *> same as <git add -A>
-            print('✅: the command of <git add *> be executed successfully \n')
+            time.sleep(60)
+            subprocess.getoutput('git add -A') # <git add *> same as <git add -A> ?
+            print('✅: the command of <git add -A> be executed successfully \n')
             # git commit -a -m "this is commit infos"
             subprocess.getoutput('git commit -m' + ' " ' + commitMsg + ' " ')
             print('✅: the command of <git commit - m "commitMsg"> be executed successfully \n')
@@ -189,4 +190,4 @@ class Tools:
 # tool.gitPush("update tools.py")
 
 # run : 应该将 Tools() 中的三个参数写到 generateCoverPic() 函数中
-Tools('coverTemplate.md', 'Day000', 'yellow').run('coverTemplate.md', 'yellow', 'Day000', 'hexo-new-post-0007', 'template-spe-2020-ch.md', '🚨 testing : this is git commit message')
+Tools('coverTemplate.md', 'Day000', 'blue').run('coverTemplate.md', 'blue', 'Day000', 'hexo-new-post-0016', 'template-spe-2020-ch.md', '🚨 testing : this is git commit message')
