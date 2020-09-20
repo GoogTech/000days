@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-20 19:14:40
+LastEditTime: 2020-09-20 19:29:28
 Description: use a text of daily plans to generate a picture
 Reference: https://blog.csdn.net/www89574622/article/details/87974931
 Reference: https://selenium-python-zh.readthedocs.io/en/latest/locating-elements.html#class-name
@@ -149,8 +149,10 @@ class Tools:
 
       ''' GitHub 提交程序 '''
       def gitPush(self, commitMsg):
+            print(subprocess.getoutput('git add . \n\n'))
+            print('✅: the command of <git add .> be executed successfully \n\n')
             # git commit -a -m "this is commit infos"
-            print(subprocess.getoutput('git commit -a -m' + ' " ' + commitMsg + ' " \n\n'))
+            print(subprocess.getoutput('git commit -m' + ' " ' + commitMsg + ' " \n\n'))
             print('✅: the command of <git commit - m> be executed successfully \n\n')
             # git push origin Hexobackup
             print(subprocess.getoutput('git push origin Hexobackup'))
