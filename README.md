@@ -3,10 +3,8 @@
         <img src="https://000days.com/images/000days-logo.PNG" width="800">
     </a>
 </p>
-<p align="center" style="font-size:40px">
-    ONE COMMAND ONE PLAN
-</p>
 
+# One Command One Plan
 
 ## How To Run
 <details>
