@@ -1,8 +1,9 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-21 12:55:07
-Description: use a text of daily plans to generate a picture (v 2.0)
+LastEditTime: 2020-09-21 15:21:16
+Description: one command one plan
+Reference: https://www.jianshu.com/p/bca94c3dbdf4
 Reference: https://docs.python.org/2/library/optparse.html
 Reference: https://www.cnpython.com/qa/55055
 Reference: https://blog.csdn.net/www89574622/article/details/87974931
@@ -19,6 +20,7 @@ import datetime
 import subprocess
 import webbrowser
 import optparse
+from termcolor import cprint
 
 class Tools:
 
@@ -206,6 +208,7 @@ class Tools:
                   planTemplateFileName = options.planTemplateFileName
                   hexoPostTitle = options.hexoPostTitle
                   gitCommitMsg = options.gitCommitMsg
+            Tools('', '', 'white').logo() # 输出 logo 样式
             print('\n\n\ncheck the parameters you entered: ')
             print('🔎: coverTemplateFileName : ' + coverTemplateFileName)
             print('🔎: coverPicName : ' + coverPicName)
@@ -218,13 +221,37 @@ class Tools:
             # Tools('coverTemplate.md', 'Day003', 'brown').run('coverTemplate.md', 'brown', 'Day003', 'hexo-new-post-0045', 'template-spe-2020-ch.md', '🚨 testing : this is git commit message')
             Tools(coverTemplateFileName, moveCoverToDir, coverBgColor).run(coverTemplateFileName, coverPicName, coverBgColor, moveCoverToDir, hexoPostTitle, planTemplateFileName, gitCommitMsg)
             print('⚡ exited\n\n\n')
-            
-# Tools('coverTemplate.md', 'Day003', 'brown').initParameter()
-Tools('coverTemplate.md', 'Day999', 'brown').initParameter()
+
+      ''' 将 logo 样式输出到控制台 '''
+      def logo(self):   
+            cprint('                                                                          ')
+            cprint(' __  ___   ___        _                          __         _             ', 'cyan', attrs=['bold'])
+            cprint('/_ |/ _ \ / _ \      | |                        / _|       | |            ', 'cyan', attrs=['bold'])
+            cprint(' | | | | | | | |   __| | __ _ _   _ ___    ___ | |_   _ __ | | __ _ _ __  ', 'cyan', attrs=['bold'])
+            cprint(' | | | | | | | |  / _` |/ _` | | | / __|  / _ \|  _| |  _ \| |/ _` |  _ \ ', 'yellow', attrs=['bold'])
+            cprint(' | | |_| | |_| | | (_| | (_| | |_| \__ \ | (_) | |   | |_) | | (_| | | | |', 'yellow', attrs=['bold'])
+            cprint(' |_|\___/ \___/   \__,_|\__,_|\__, |___/  \___/|_|   | .__/|_|\__,_|_| |_|', 'green', attrs=['bold'])
+            cprint('                               __/ |                 | |                  ', 'green', attrs=['bold'])
+            cprint('                              |___/                  |_|                  ', 'green', attrs=['bold'])
+            cprint('                                                                          ')
+            cprint('                                        Author: GoogTech And Version: v1.0', 'red')
+            cprint('                            GitHub: https://github.com/YUbuntu0109/000days', 'red')   
+            cprint('                                                                          ')                                                
+
+# 运行程序, 其执行步骤及其核心功能说明如下所示(注意: 其中向 Tools() 中传入的三个参数时多余的,记得重构代码哟) : 
+# 1. 将封面模板文件中的内容,及接收的样式参数拼接到 url, 然后打开浏览器并将该请求发送给 https://carbon.now.sh, 进而生成相应的图片.
+# 2. 通过 chromeDriver 将 https://carbon.now.sh 网页生成封面图下载到本地, 然后将其重命名并移动到指定文件夹.
+# 3. 根据接收的 hexo-post-title 等参数生成对应标题的博客文章, 然后将当月日计划模板中的内容(即今日的打卡内容)写入到该文章中.
+# 4. 执行 hexo clean && hexo generate && hexo server, 然后打开浏览器并跳转到 http://127.0.0.1:4000 进行博文测试及预览.
+# 5. 执行 git add -A && git commit -m && git pull origin Hexobackup, 即将本地新添加的博文及其封面图推送到远程 GitHub 仓库.
+# 6. 最后博客网站的部署工作由已经集成到 GitHub 仓库的 Travis CI/CD 来完成, 至此发布及部署新博文的工作已全部完成 !
+# Tools('coverTemplate.md', 'Day999', 'white').initParameter()
+Tools('', '', 'white').initParameter()
 
 
 #
-# Docs and How To Run:
+# Docs and How To Run :
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #
 # Administrator@191114gm MINGW64 /f/Git/workbench/workbench-github-website/000days/py (Hexobackup)
 # $ python toolsPlus.py --help
@@ -247,3 +274,5 @@ Tools('coverTemplate.md', 'Day999', 'brown').initParameter()
 
 # Administrator@191114gm MINGW64 /f/Git/workbench/workbench-github-website/000days/py (Hexobackup)
 # $ python toolsPlus.py --ct coverTemplate.md --cn Day1228 --bg yellow --cd Day1228 --pt template-spe-2020-ch.md --ht hexo-new-post-1228 --cm testing\ :\ this\ is\ commit\ message
+# . . .
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
