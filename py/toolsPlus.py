@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-21 10:19:21
+LastEditTime: 2020-09-21 12:42:17
 Description: use a text of daily plans to generate a picture (v 2.0)
 Reference: https://docs.python.org/2/library/optparse.html
 Reference: https://www.cnpython.com/qa/55055
@@ -109,21 +109,22 @@ class Tools:
             else: return path
 
       '''  将下载的图片移动到指定路径 '''
-      def moveFile(self):
+      def moveFile(self, coverPicName):
             # 找到 Chrome 下载文件夹中最新下载的文件,并将其移动到当前文件夹中
             fileList = os.listdir(self.chromeDownloadPath)
             fileList.sort(key = lambda fn : os.path.getmtime(self.chromeDownloadPath + fn) if not os.path.isdir(self.chromeDownloadPath + fn) else 0)
             updateTime = datetime.datetime.fromtimestamp(os.path.getmtime(self.chromeDownloadPath + fileList[-1])) # 获取文件时间
-            print('✅: new file name: ' + fileList[-1] + " and created time: " + updateTime.strftime("%Y-%m-%d %H-%M-%S") + '\n')
-            # 移动文件
-            shutil.move(self.chromeDownloadPath + fileList[-1], self.mkdir(self.coverPicDownloadPath))
+            print('✅: the newest file name: ' + fileList[-1] + " and created time: " + updateTime.strftime("%Y-%m-%d %H-%M-%S") + '\n')
+            # 移动并重命名文件
+            shutil.move(self.chromeDownloadPath + fileList[-1], self.mkdir(self.coverPicDownloadPath) + '\\' + coverPicName + '.png')
+            print('✅: file be renamed successfully and new name: ' + fileList[-1] + '\n')
             print('✅: picture be moved successfully \n')
 
       ''' 根据博客模板文件中的内容生成博客封面图片 '''
-      def generateCoverPic(self):
+      def generateCoverPic(self, coverPicName):
             self.readTemplate(self.coverTemplatePath)
             self.clickButton()
-            self.moveFile()
+            self.moveFile(coverPicName)
             print('✅: had done and exited \n')
 
       ''' 创建今日打卡文章,并将这个月的日计划模板内容读取到此文件中 '''
@@ -153,7 +154,8 @@ class Tools:
       ''' GitHub 提交程序 '''
       def gitPush(self, commitMsg):
             time.sleep(30)
-            subprocess.getoutput('git add -A') # <git add *> same as <git add -A> ?
+            # git add --all
+            subprocess.getoutput('git add -A')
             print('\n\n\n✅: the command of <git add -A> be executed successfully \n')
             # git commit -a -m "this is commit infos"
             subprocess.getoutput('git commit -m' + ' " ' + commitMsg + ' " ')
@@ -165,11 +167,11 @@ class Tools:
             subprocess.Popen('git log -3', shell = True)
 
       ''' run '''
-      def run(self, coverTemplateFileName, coverBgColor, moveCoverToDir,
+      def run(self, coverTemplateFileName, coverPicName, coverBgColor, moveCoverToDir,
        newHexoPostTitle, planTemplateFileName, gitCommitMsg):
           tool = Tools(coverTemplateFileName, moveCoverToDir, coverBgColor)
           # 生成文章封面图,传入参数为: 模板文件,用于存储封面图片的文件夹,封面背景颜色
-          tool.generateCoverPic() # 应该将上述的三个参数传入到 generateCoverPic() 函数中
+          tool.generateCoverPic(coverPicName) # 应该将上述的三个参数传入到 generateCoverPic() 函数中
           print('⚡: generated a cover picture successfully \n\n\n\n')
           # 生成 Hexo 博文,传入参数为:新文章的标题,日计划模板文件
           tool.hexoNew(newHexoPostTitle, planTemplateFileName)
@@ -184,19 +186,21 @@ class Tools:
 
       ''' 接收用户输入的参数,然后运行程序 '''
       def initParameter(self):
-            parser = optparse.OptionParser("usage: %prog -coverTemplateFileName <coverTemplateFileName> -moveCoverToDir <moveCoverToDir> -planTemplateFileName <planTemplateFileName> -hexoPostTitle <hexoPostTitle> -gitCommitMsg <gitCommitMsg>")
+            parser = optparse.OptionParser("usage: %prog -coverTemplateFileName <coverTemplateFileName> -coverPicName <coverPicName> -moveCoverToDir <moveCoverToDir> -planTemplateFileName <planTemplateFileName> -hexoPostTitle <hexoPostTitle> -gitCommitMsg <gitCommitMsg>")
             parser.add_option('--ct', '--coverTemplate', dest='coverTemplateFileName', type='string', help='please enter the file name of cover template')
+            parser.add_option('--cn', '--coverPicName', dest='coverPicName', type='string', help='please enter the name of cover picture')
             parser.add_option('--bg', '--coverBgColor', dest='coverBgColor', type='string', help='please enter the background color of cover image')
             parser.add_option('--cd', '--moveCoverToDir', dest='moveCoverToDir', type='string', help='please enter the dir name of cover image')
             parser.add_option('--pt', '--planTemplateFileName', dest='planTemplateFileName', type='string', help='please enter the file name of plan template')
             parser.add_option('--ht', '--hexoPostTitle', dest='hexoPostTitle', type='string', help='please enter the title of hexo post')
             parser.add_option('--cm', '--gitCommitMsg', dest='gitCommitMsg', type='string', help='please enter the git commit message')
             (options, args) = parser.parse_args()
-            if (options.coverTemplateFileName == None) | (options.coverBgColor == None) | (options.moveCoverToDir == None) | (options.planTemplateFileName == None) | (options.hexoPostTitle == None) | (options.gitCommitMsg == None):
+            if (options.coverTemplateFileName == None) | (options.coverPicName == None ) | (options.coverBgColor == None) | (options.moveCoverToDir == None) | (options.planTemplateFileName == None) | (options.hexoPostTitle == None) | (options.gitCommitMsg == None):
                   print(parser.usage)
                   exit(0)
             else:
                   coverTemplateFileName = options.coverTemplateFileName
+                  coverPicName = options.coverPicName
                   coverBgColor = options.coverBgColor
                   moveCoverToDir = options.moveCoverToDir
                   planTemplateFileName = options.planTemplateFileName
@@ -204,6 +208,7 @@ class Tools:
                   gitCommitMsg = options.gitCommitMsg
             # test
             print('coverTemplateFileName : ' + coverTemplateFileName)
+            print('coverPicName : ' + coverPicName)
             print('coverBgColor : ' + coverBgColor)
             print('moveCoverToDir : ' + moveCoverToDir)
             print('planTemplateFileName : ' + planTemplateFileName)
@@ -211,7 +216,7 @@ class Tools:
             print('gitCommitMsg : ' + gitCommitMsg)
             # run : 应该将 Tools() 中的三个参数写到 generateCoverPic() 函数中
             # Tools('coverTemplate.md', 'Day003', 'brown').run('coverTemplate.md', 'brown', 'Day003', 'hexo-new-post-0045', 'template-spe-2020-ch.md', '🚨 testing : this is git commit message')
-            Tools(coverTemplateFileName, moveCoverToDir, coverBgColor).run(coverTemplateFileName, coverBgColor, moveCoverToDir, hexoPostTitle, planTemplateFileName, gitCommitMsg)
+            Tools(coverTemplateFileName, moveCoverToDir, coverBgColor).run(coverTemplateFileName, coverPicName, coverBgColor, moveCoverToDir, hexoPostTitle, planTemplateFileName, gitCommitMsg)
             print('⚡ exited\n\n\n')
             
 # Tools('coverTemplate.md', 'Day003', 'brown').initParameter()
