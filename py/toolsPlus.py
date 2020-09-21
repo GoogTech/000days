@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-21 12:42:17
+LastEditTime: 2020-09-21 12:55:07
 Description: use a text of daily plans to generate a picture (v 2.0)
 Reference: https://docs.python.org/2/library/optparse.html
 Reference: https://www.cnpython.com/qa/55055
@@ -117,7 +117,7 @@ class Tools:
             print('✅: the newest file name: ' + fileList[-1] + " and created time: " + updateTime.strftime("%Y-%m-%d %H-%M-%S") + '\n')
             # 移动并重命名文件
             shutil.move(self.chromeDownloadPath + fileList[-1], self.mkdir(self.coverPicDownloadPath) + '\\' + coverPicName + '.png')
-            print('✅: file be renamed successfully and new name: ' + fileList[-1] + '\n')
+            print('✅: file be renamed successfully and new name: ' + coverPicName + '.png')
             print('✅: picture be moved successfully \n')
 
       ''' 根据博客模板文件中的内容生成博客封面图片 '''
@@ -182,7 +182,7 @@ class Tools:
           # 将新添加的文件 Push 到远程 Github Repo, 参入的参数为 commit 的说明信息
           tool.gitPush(gitCommitMsg)
           print('⚡: push these new files to github successfully')
-          print('⚡: Nice ! Everything be done successfully, See you again bro. \n\n\n')
+          print('⚡: Nice ! Everything be done successfully, See you again bro.')
 
       ''' 接收用户输入的参数,然后运行程序 '''
       def initParameter(self):
@@ -206,14 +206,14 @@ class Tools:
                   planTemplateFileName = options.planTemplateFileName
                   hexoPostTitle = options.hexoPostTitle
                   gitCommitMsg = options.gitCommitMsg
-            # test
-            print('coverTemplateFileName : ' + coverTemplateFileName)
-            print('coverPicName : ' + coverPicName)
-            print('coverBgColor : ' + coverBgColor)
-            print('moveCoverToDir : ' + moveCoverToDir)
-            print('planTemplateFileName : ' + planTemplateFileName)
-            print('hexoPostTitle : ' + hexoPostTitle)
-            print('gitCommitMsg : ' + gitCommitMsg)
+            print('\n\n\ncheck the parameters you entered: ')
+            print('🔎: coverTemplateFileName : ' + coverTemplateFileName)
+            print('🔎: coverPicName : ' + coverPicName)
+            print('🔎: coverBgColor : ' + coverBgColor)
+            print('🔎: moveCoverToDir : ' + moveCoverToDir)
+            print('🔎: planTemplateFileName : ' + planTemplateFileName)
+            print('🔎: hexoPostTitle : ' + hexoPostTitle)
+            print('🔎: gitCommitMsg : ' + gitCommitMsg + '\n\n\n')
             # run : 应该将 Tools() 中的三个参数写到 generateCoverPic() 函数中
             # Tools('coverTemplate.md', 'Day003', 'brown').run('coverTemplate.md', 'brown', 'Day003', 'hexo-new-post-0045', 'template-spe-2020-ch.md', '🚨 testing : this is git commit message')
             Tools(coverTemplateFileName, moveCoverToDir, coverBgColor).run(coverTemplateFileName, coverPicName, coverBgColor, moveCoverToDir, hexoPostTitle, planTemplateFileName, gitCommitMsg)
@@ -246,10 +246,4 @@ Tools('coverTemplate.md', 'Day999', 'brown').initParameter()
 #                         please enter the git commit message
 
 # Administrator@191114gm MINGW64 /f/Git/workbench/workbench-github-website/000days/py (Hexobackup)
-# $ python toolsPlus.py --ct coverTemplate.md --bg red --cd Day0935 --pt template-spe-2020-ch.md --ht hexo-new-post-0935 --cm testing\ :\ this\ is\ commit\ message
-# coverTemplateFileName : coverTemplate.md
-# coverBgColor : red
-# moveCoverToDir : Day0935
-# planTemplateFileName : template-spe-2020-ch.md 
-# hexoPostTitle : hexo-new-post-0935
-# gitCommitMsg : testing : this is commit message
+# $ python toolsPlus.py --ct coverTemplate.md --cn Day1228 --bg yellow --cd Day1228 --pt template-spe-2020-ch.md --ht hexo-new-post-1228 --cm testing\ :\ this\ is\ commit\ message
