@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-21 10:01:15
+LastEditTime: 2020-09-21 10:19:21
 Description: use a text of daily plans to generate a picture (v 2.0)
 Reference: https://docs.python.org/2/library/optparse.html
 Reference: https://www.cnpython.com/qa/55055
@@ -180,9 +180,9 @@ class Tools:
           # 将新添加的文件 Push 到远程 Github Repo, 参入的参数为 commit 的说明信息
           tool.gitPush(gitCommitMsg)
           print('⚡: push these new files to github successfully')
-          print('⚡: Nice ! Everything be done successfully and exited, See you again bro. \n\n\n')
+          print('⚡: Nice ! Everything be done successfully, See you again bro. \n\n\n')
 
-      ''' 接收用户输入的参数 '''
+      ''' 接收用户输入的参数,然后运行程序 '''
       def initParameter(self):
             parser = optparse.OptionParser("usage: %prog -coverTemplateFileName <coverTemplateFileName> -moveCoverToDir <moveCoverToDir> -planTemplateFileName <planTemplateFileName> -hexoPostTitle <hexoPostTitle> -gitCommitMsg <gitCommitMsg>")
             parser.add_option('--ct', '--coverTemplate', dest='coverTemplateFileName', type='string', help='please enter the file name of cover template')
@@ -210,13 +210,12 @@ class Tools:
             print('hexoPostTitle : ' + hexoPostTitle)
             print('gitCommitMsg : ' + gitCommitMsg)
             # run : 应该将 Tools() 中的三个参数写到 generateCoverPic() 函数中
-            # how to run:
-            # Administrator@191114gm MINGW64 /f/Git/workbench/workbench-github-website/000days/py (Hexobackup)
-            # $ python toolsPlus.py 
             # Tools('coverTemplate.md', 'Day003', 'brown').run('coverTemplate.md', 'brown', 'Day003', 'hexo-new-post-0045', 'template-spe-2020-ch.md', '🚨 testing : this is git commit message')
+            Tools(coverTemplateFileName, moveCoverToDir, coverBgColor).run(coverTemplateFileName, coverBgColor, moveCoverToDir, hexoPostTitle, planTemplateFileName, gitCommitMsg)
+            print('⚡ exited\n\n\n')
             
-# Tools('coverTemplate.md', 'Day003', 'brown').run('coverTemplate.md', 'brown', 'Day003', 'hexo-new-post-0045', 'template-spe-2020-ch.md', '🚨 testing : this is git commit message')
-Tools('coverTemplate.md', 'Day003', 'brown').initParameter()
+# Tools('coverTemplate.md', 'Day003', 'brown').initParameter()
+Tools('coverTemplate.md', 'Day999', 'brown').initParameter()
 
 
 #
