@@ -1,8 +1,10 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-21 00:45:35
+LastEditTime: 2020-09-21 10:01:15
 Description: use a text of daily plans to generate a picture (v 2.0)
+Reference: https://docs.python.org/2/library/optparse.html
+Reference: https://www.cnpython.com/qa/55055
 Reference: https://blog.csdn.net/www89574622/article/details/87974931
 Reference: https://selenium-python-zh.readthedocs.io/en/latest/locating-elements.html#class-name
 Reference: https://blog.csdn.net/liudinglong1989/article/details/78731754?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-4.channel_param
@@ -16,6 +18,7 @@ import shutil
 import datetime
 import subprocess
 import webbrowser
+import optparse
 
 class Tools:
 
@@ -165,32 +168,84 @@ class Tools:
       def run(self, coverTemplateFileName, coverBgColor, moveCoverToDir,
        newHexoPostTitle, planTemplateFileName, gitCommitMsg):
           tool = Tools(coverTemplateFileName, moveCoverToDir, coverBgColor)
+          # 生成文章封面图,传入参数为: 模板文件,用于存储封面图片的文件夹,封面背景颜色
           tool.generateCoverPic() # 应该将上述的三个参数传入到 generateCoverPic() 函数中
           print('⚡: generated a cover picture successfully \n\n\n\n')
+          # 生成 Hexo 博文,传入参数为:新文章的标题,日计划模板文件
           tool.hexoNew(newHexoPostTitle, planTemplateFileName)
           print('⚡: created a new hexo post successfully \n\n\n\n')
+          # 运行 Hexo 本地测试程序,即运行命令 hexo clean & hexo generate && hexo server
           tool.hexoTesting()
           print('⚡: hexo cleaned && generated and runed hexo server successfully \n\n\n\n')
+          # 将新添加的文件 Push 到远程 Github Repo, 参入的参数为 commit 的说明信息
           tool.gitPush(gitCommitMsg)
           print('⚡: push these new files to github successfully')
           print('⚡: Nice ! Everything be done successfully and exited, See you again bro. \n\n\n')
+
+      ''' 接收用户输入的参数 '''
+      def initParameter(self):
+            parser = optparse.OptionParser("usage: %prog -coverTemplateFileName <coverTemplateFileName> -moveCoverToDir <moveCoverToDir> -planTemplateFileName <planTemplateFileName> -hexoPostTitle <hexoPostTitle> -gitCommitMsg <gitCommitMsg>")
+            parser.add_option('--ct', '--coverTemplate', dest='coverTemplateFileName', type='string', help='please enter the file name of cover template')
+            parser.add_option('--bg', '--coverBgColor', dest='coverBgColor', type='string', help='please enter the background color of cover image')
+            parser.add_option('--cd', '--moveCoverToDir', dest='moveCoverToDir', type='string', help='please enter the dir name of cover image')
+            parser.add_option('--pt', '--planTemplateFileName', dest='planTemplateFileName', type='string', help='please enter the file name of plan template')
+            parser.add_option('--ht', '--hexoPostTitle', dest='hexoPostTitle', type='string', help='please enter the title of hexo post')
+            parser.add_option('--cm', '--gitCommitMsg', dest='gitCommitMsg', type='string', help='please enter the git commit message')
+            (options, args) = parser.parse_args()
+            if (options.coverTemplateFileName == None) | (options.coverBgColor == None) | (options.moveCoverToDir == None) | (options.planTemplateFileName == None) | (options.hexoPostTitle == None) | (options.gitCommitMsg == None):
+                  print(parser.usage)
+                  exit(0)
+            else:
+                  coverTemplateFileName = options.coverTemplateFileName
+                  coverBgColor = options.coverBgColor
+                  moveCoverToDir = options.moveCoverToDir
+                  planTemplateFileName = options.planTemplateFileName
+                  hexoPostTitle = options.hexoPostTitle
+                  gitCommitMsg = options.gitCommitMsg
+            # test
+            print('coverTemplateFileName : ' + coverTemplateFileName)
+            print('coverBgColor : ' + coverBgColor)
+            print('moveCoverToDir : ' + moveCoverToDir)
+            print('planTemplateFileName : ' + planTemplateFileName)
+            print('hexoPostTitle : ' + hexoPostTitle)
+            print('gitCommitMsg : ' + gitCommitMsg)
+            # run : 应该将 Tools() 中的三个参数写到 generateCoverPic() 函数中
+            # how to run:
+            # Administrator@191114gm MINGW64 /f/Git/workbench/workbench-github-website/000days/py (Hexobackup)
+            # $ python toolsPlus.py 
+            # Tools('coverTemplate.md', 'Day003', 'brown').run('coverTemplate.md', 'brown', 'Day003', 'hexo-new-post-0045', 'template-spe-2020-ch.md', '🚨 testing : this is git commit message')
             
-# tool = Tools('coverTemplate.md', 'Day100', 'red') 
+# Tools('coverTemplate.md', 'Day003', 'brown').run('coverTemplate.md', 'brown', 'Day003', 'hexo-new-post-0045', 'template-spe-2020-ch.md', '🚨 testing : this is git commit message')
+Tools('coverTemplate.md', 'Day003', 'brown').initParameter()
 
-# # 生成文章封面图,传入参数为: 模板文件,用于存储封面图片的文件夹,封面背景颜色
-# tool.generateCoverPic()
 
-# # 生成 Hexo 博文,传入参数为:新文章的标题,日计划模板文件
-# tool.hexoNew('hexo-new-post-1909', 'template-spe-2020-ch.md')
-
-# # 运行 Hexo 本地测试程序,即运行命令 hexo clean & hexo generate && hexo server
-# tool.hexoTesting()
-
-# # 将新添加的文件 Push 到远程 Github Repo, 参入的参数为 commit 的说明信息
-# tool.gitPush("update tools.py")
-
-# run : 应该将 Tools() 中的三个参数写到 generateCoverPic() 函数中
-# how to run:
+#
+# Docs and How To Run:
+#
 # Administrator@191114gm MINGW64 /f/Git/workbench/workbench-github-website/000days/py (Hexobackup)
-# $ python toolsPlus.py 
-Tools('coverTemplate.md', 'Day003', 'brown').run('coverTemplate.md', 'brown', 'Day003', 'hexo-new-post-0045', 'template-spe-2020-ch.md', '🚨 testing : this is git commit message')
+# $ python toolsPlus.py --help
+# Usage: toolsPlus.py -coverTemplateFileName <coverTemplateFileName> -moveCoverToDir <moveCoverToDir> -planTemplateFileName <planTemplateFileName> -hexoPostTitle <hexoPostTitle> -gitCommitMsg <gitCommitMsg>
+
+# Options:
+#   -h, --help            show this help message and exit
+#   --ct=COVERTEMPLATEFILENAME, --coverTemplate=COVERTEMPLATEFILENAME
+#                         please enter the file name of cover template
+#   --bg=COVERBGCOLOR, --coverBgColor=COVERBGCOLOR
+#                         please enter the background color of cover image
+#   --cd=MOVECOVERTODIR, --moveCoverToDir=MOVECOVERTODIR
+#                         please enter the dir name of cover image
+#   --pt=PLANTEMPLATEFILENAME, --planTemplateFileName=PLANTEMPLATEFILENAME
+#                         please enter the file name of plan template
+#   --ht=HEXOPOSTTITLE, --hexoPostTitle=HEXOPOSTTITLE
+#                         please enter the title of hexo post
+#   --cm=GITCOMMITMSG, --gitCommitMsg=GITCOMMITMSG
+#                         please enter the git commit message
+
+# Administrator@191114gm MINGW64 /f/Git/workbench/workbench-github-website/000days/py (Hexobackup)
+# $ python toolsPlus.py --ct coverTemplate.md --bg red --cd Day0935 --pt template-spe-2020-ch.md --ht hexo-new-post-0935 --cm testing\ :\ this\ is\ commit\ message
+# coverTemplateFileName : coverTemplate.md
+# coverBgColor : red
+# moveCoverToDir : Day0935
+# planTemplateFileName : template-spe-2020-ch.md 
+# hexoPostTitle : hexo-new-post-0935
+# gitCommitMsg : testing : this is commit message
