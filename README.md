@@ -318,6 +318,6 @@
     ```
 </details>
 
-
+* [post info](https://000days.com/2020/09/21/hexo-new-post-000/)
 * [commit info](https://github.com/YUbuntu0109/000days/commit/e973ee18bc9dd4c3c5c25e7ab521a7f38411b9d0)
 * [travis-ci build info](https://travis-ci.com/github/YUbuntu0109/000days/builds/185559842)
