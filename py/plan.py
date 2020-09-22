@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-23 00:28:27
+LastEditTime: 2020-09-23 00:32:25
 Description: one command one plan
 Reference: https://www.jianshu.com/p/bca94c3dbdf4
 Reference: https://docs.python.org/2/library/optparse.html
@@ -184,7 +184,7 @@ class Tools:
           print('⚡: created a new hexo post successfully \n\n\n\n')
           # 运行 Hexo 本地测试程序,即运行命令 hexo clean & hexo generate && hexo server
           tool.hexoTesting()
-          print('⚡: hexo cleaned && generated and runed hexo server successfully \n\n\n\n')
+          # print('⚡: hexo cleaned && generated and runed hexo server successfully \n\n\n\n')
           # 将新添加的文件 Push 到远程 Github Repo, 参入的参数为 commit 的说明信息
           tool.gitPush(gitCommitMsg)
           print('⚡: push these new files to github successfully')
