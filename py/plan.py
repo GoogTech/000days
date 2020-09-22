@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-22 22:21:32
+LastEditTime: 2020-09-22 22:24:41
 Description: one command one plan
 Reference: https://www.jianshu.com/p/bca94c3dbdf4
 Reference: https://docs.python.org/2/library/optparse.html
@@ -39,7 +39,7 @@ class Tools:
             # 当月日计划模板路径
             self.planTemplatePath = self.projectPath + "\\template\\daily-plans-for-spe-2020\\"
             # 封面图片存储路径
-            self.coverPicDownloadPath = self.projectPath + "\\themes\\zhaoo\\source\\images\\2020\\" + coverPic
+            self.coverPicDownloadPath = self.projectPath + "\\themes\\zhaoo\\source\\images\\2020\\100DaysOfPlan" + coverPic
             # https://carbon.now.sh/ 固定样式的请求地址
             rgba = self.bg()
             self.requestUrl = "https://carbon.now.sh/?bg=" + rgba[coverBackground] + "&t=one-light" \
