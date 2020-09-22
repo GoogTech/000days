@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-22 22:24:41
+LastEditTime: 2020-09-23 00:28:27
 Description: one command one plan
 Reference: https://www.jianshu.com/p/bca94c3dbdf4
 Reference: https://docs.python.org/2/library/optparse.html
@@ -39,7 +39,7 @@ class Tools:
             # 当月日计划模板路径
             self.planTemplatePath = self.projectPath + "\\template\\daily-plans-for-spe-2020\\"
             # 封面图片存储路径
-            self.coverPicDownloadPath = self.projectPath + "\\themes\\zhaoo\\source\\images\\2020\\100DaysOfPlan" + coverPic
+            self.coverPicDownloadPath = self.projectPath + "\\themes\\zhaoo\\source\\images\\2020\\100DaysOfPlan\\" + coverPic
             # https://carbon.now.sh/ 固定样式的请求地址
             rgba = self.bg()
             self.requestUrl = "https://carbon.now.sh/?bg=" + rgba[coverBackground] + "&t=one-light" \
@@ -143,15 +143,19 @@ class Tools:
 
       ''' Hexo 本地测试程序 '''
       def hexoTesting(self):
+            # 跳过此功能,因发现若 "日计划模板文件" 中有中文或特殊符号时则会抛出如下异常: 
+            # UnicodeDecodeError: 'gbk' codec can't decode byte 0xac in position 175: illegal multibyte sequence
+
             # 运行 Hexo 本地测试命令
-            print(subprocess.getoutput('hexo clean'))
-            print('✅: the command of <hexo clean> be executed successfully \n')
-            print(subprocess.getoutput('hexo generate'))
-            print('✅: the command of <hexo generate> be executed successfully \n')
+            # print(subprocess.getoutput('hexo clean'))
+            # print('✅: the command of <hexo clean> be executed successfully \n')
+            # print(subprocess.getoutput('hexo generate'))
+            # print('✅: the command of <hexo generate> be executed successfully \n')
             # Hexo服务器的启动不能占用当前进行,易卡顿,所以需创建一个子进程
-            subprocess.Popen('hexo s', shell=True)
+            # subprocess.Popen('hexo s', shell=True)
             # 打开网页
-            webbrowser.open(self.hexoLocalServerUrl)
+            # webbrowser.open(self.hexoLocalServerUrl)
+            pass
 
       ''' GitHub 提交程序 '''
       def gitPush(self, commitMsg):
