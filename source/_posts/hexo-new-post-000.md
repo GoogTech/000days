@@ -1,12 +1,13 @@
 ---
 title: hexo-new-post-000
+excerpt: This Is A Testing Blog And README.md
 date: 2020-09-21 15:37:40
 image: /images/2020/Day000/coverPic.png
 tags: README
 ---
 
 <p align="center">
-	<a href="https://000days.com/">
+	<a href="https://github.com/YUbuntu0109/000days">
         <img src="https://000days.com/images/000days-logo.PNG" width="800">
     </a>
 </p>
