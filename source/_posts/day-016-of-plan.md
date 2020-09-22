@@ -1,9 +1,9 @@
 ---
 title: 第 016 天日计划打卡
-date: 2020-09-21 15:37:40
+excerpt: 🎉 100 天自律计划之第 016 天日计划打卡 !
+date: 2020-09-22 00:00:00
 image: /images/2020/100DaysOfPlan/day016/day016Cover.png
 tags: [100DaysOfFitness,100DaysOfCode,100DaysOfEnglish,100DaysOfPlan]
-description: 🎉 100 天自律计划之第 016 天日计划打卡
 categories: #设置分类
 - 2020年9月
 - 100天自律计划
