@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-21 15:21:16
+LastEditTime: 2020-09-22 22:21:32
 Description: one command one plan
 Reference: https://www.jianshu.com/p/bca94c3dbdf4
 Reference: https://docs.python.org/2/library/optparse.html
@@ -247,32 +247,3 @@ class Tools:
 # 6. 最后博客网站的部署工作由已经集成到 GitHub 仓库的 Travis CI/CD 来完成, 至此发布及部署新博文的工作已全部完成 !
 # Tools('coverTemplate.md', 'Day999', 'white').initParameter()
 Tools('', '', 'white').initParameter()
-
-
-#
-# Docs and How To Run :
-#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#
-# Administrator@191114gm MINGW64 /f/Git/workbench/workbench-github-website/000days/py (Hexobackup)
-# $ python toolsPlus.py --help
-# Usage: toolsPlus.py -coverTemplateFileName <coverTemplateFileName> -moveCoverToDir <moveCoverToDir> -planTemplateFileName <planTemplateFileName> -hexoPostTitle <hexoPostTitle> -gitCommitMsg <gitCommitMsg>
-
-# Options:
-#   -h, --help            show this help message and exit
-#   --ct=COVERTEMPLATEFILENAME, --coverTemplate=COVERTEMPLATEFILENAME
-#                         please enter the file name of cover template
-#   --bg=COVERBGCOLOR, --coverBgColor=COVERBGCOLOR
-#                         please enter the background color of cover image
-#   --cd=MOVECOVERTODIR, --moveCoverToDir=MOVECOVERTODIR
-#                         please enter the dir name of cover image
-#   --pt=PLANTEMPLATEFILENAME, --planTemplateFileName=PLANTEMPLATEFILENAME
-#                         please enter the file name of plan template
-#   --ht=HEXOPOSTTITLE, --hexoPostTitle=HEXOPOSTTITLE
-#                         please enter the title of hexo post
-#   --cm=GITCOMMITMSG, --gitCommitMsg=GITCOMMITMSG
-#                         please enter the git commit message
-
-# Administrator@191114gm MINGW64 /f/Git/workbench/workbench-github-website/000days/py (Hexobackup)
-# $ python toolsPlus.py --ct coverTemplate.md --cn Day1228 --bg yellow --cd Day1228 --pt template-spe-2020-ch.md --ht hexo-new-post-1228 --cm testing\ :\ this\ is\ commit\ message
-# . . .
-#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
