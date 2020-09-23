@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-23 15:55:36
+LastEditTime: 2020-09-23 16:32:48
 Description: one command one plan
 Reference: https://www.jianshu.com/p/bca94c3dbdf4
 Reference: https://docs.python.org/2/library/optparse.html
@@ -132,8 +132,8 @@ class Tools:
       ''' 创建今日打卡文章,并将这个月的日计划模板内容读取到此文件中 '''
       def hexoNew(self, postName, planTemplate):
             # same as execute the command: hexo new 'new-post-name'
-            # print(subprocess.getoutput('hexo new ' + postName))
-            subprocess.Popen('hexo s', shell = True, universal_newlines = False)
+            print(subprocess.getoutput('hexo new ' + postName))
+            # subprocess.Popen('hexo new ' + postName, shell = True, universal_newlines = False)
             print('✅: new post be created successfully and title is: ' + postName + '\n')
             # 读取当月每日计划模板文件,并将其内容写入到当前创建的 postName 文章中
             planTemplate = self.planTemplatePath + planTemplate
@@ -151,7 +151,7 @@ class Tools:
             print(subprocess.getoutput('hexo clean'))
             print('✅: the command of <hexo clean> be executed successfully \n')
             # print(subprocess.getoutput('hexo generate'))
-            subprocess.Popen('hexo s', shell=True, universal_newlines = False)
+            subprocess.Popen('hexo generate', shell=True, universal_newlines = False)
             print('✅: the command of <hexo generate> be executed successfully \n')
             # Hexo服务器的启动不能占用当前进行,易卡顿,所以需创建一个子进程
             subprocess.Popen('hexo s', shell=True)

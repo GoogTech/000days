@@ -1,5 +1,3 @@
 # 其中 --ht 后的参数不能使用中文,否则会抛出异常: UnicodeDecodeError: 'gbk' codec can't decode byte 0xac in position 175: illegal multibyte sequence
 
-python plan.py --ct coverTemplate.md --cn day016Cover --bg cyan --cd day016 --pt template-spe-2020-ch.md --ht day-016-of-plan --cm day\ 016\ of\ plan
-
-python plan.py --ct coverTemplate.md --cn testing --bg red --cd testing --pt template-spe-2020-ch.md --ht testing-blog --cm testing\ :\ this\ is\ commit\ message
+python plan.py --ct coverTemplate.md --cn day017Cover --bg cyan --cd day017 --pt template-spe-2020-ch.md --ht day-017-of-plan --cm day\ 017\ of\ plan
