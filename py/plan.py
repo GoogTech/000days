@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-23 16:32:48
+LastEditTime: 2020-09-23 16:54:19
 Description: one command one plan
 Reference: https://www.jianshu.com/p/bca94c3dbdf4
 Reference: https://docs.python.org/2/library/optparse.html
@@ -133,7 +133,6 @@ class Tools:
       def hexoNew(self, postName, planTemplate):
             # same as execute the command: hexo new 'new-post-name'
             print(subprocess.getoutput('hexo new ' + postName))
-            # subprocess.Popen('hexo new ' + postName, shell = True, universal_newlines = False)
             print('✅: new post be created successfully and title is: ' + postName + '\n')
             # 读取当月每日计划模板文件,并将其内容写入到当前创建的 postName 文章中
             planTemplate = self.planTemplatePath + planTemplate
@@ -144,9 +143,12 @@ class Tools:
 
       ''' Hexo 本地测试程序 '''
       def hexoTesting(self):
-            # 跳过此功能,因发现若 "日计划模板文件" 中有中文或特殊符号时则会抛出如下异常: 
+            # 当 "日计划模板文件" 中有中文或特殊符号时则会抛出如下异常: 
             # UnicodeDecodeError: 'gbk' codec can't decode byte 0xac in position 175: illegal multibyte sequence
-
+            # 解决方案如下:  
+            # https://stackoverflow.com/a/33291200/13689597
+            # https://github.com/tanepiper/SublimeText-Nodejs/issues/64#issuecomment-305839994
+            
             # 运行 Hexo 本地测试命令
             print(subprocess.getoutput('hexo clean'))
             print('✅: the command of <hexo clean> be executed successfully \n')
@@ -157,7 +159,6 @@ class Tools:
             subprocess.Popen('hexo s', shell=True)
             # 打开网页
             webbrowser.open(self.hexoLocalServerUrl)
-            # pass
 
       ''' GitHub 提交程序 '''
       def gitPush(self, commitMsg):
