@@ -1,7 +1,7 @@
 '''
 Author: Goog Tech
 Date: 2020-09-18 00:36:43
-LastEditTime: 2020-09-23 00:32:25
+LastEditTime: 2020-09-23 15:55:36
 Description: one command one plan
 Reference: https://www.jianshu.com/p/bca94c3dbdf4
 Reference: https://docs.python.org/2/library/optparse.html
@@ -132,7 +132,8 @@ class Tools:
       ''' 创建今日打卡文章,并将这个月的日计划模板内容读取到此文件中 '''
       def hexoNew(self, postName, planTemplate):
             # same as execute the command: hexo new 'new-post-name'
-            print(subprocess.getoutput('hexo new ' + postName))
+            # print(subprocess.getoutput('hexo new ' + postName))
+            subprocess.Popen('hexo s', shell = True, universal_newlines = False)
             print('✅: new post be created successfully and title is: ' + postName + '\n')
             # 读取当月每日计划模板文件,并将其内容写入到当前创建的 postName 文章中
             planTemplate = self.planTemplatePath + planTemplate
@@ -147,15 +148,16 @@ class Tools:
             # UnicodeDecodeError: 'gbk' codec can't decode byte 0xac in position 175: illegal multibyte sequence
 
             # 运行 Hexo 本地测试命令
-            # print(subprocess.getoutput('hexo clean'))
-            # print('✅: the command of <hexo clean> be executed successfully \n')
+            print(subprocess.getoutput('hexo clean'))
+            print('✅: the command of <hexo clean> be executed successfully \n')
             # print(subprocess.getoutput('hexo generate'))
-            # print('✅: the command of <hexo generate> be executed successfully \n')
+            subprocess.Popen('hexo s', shell=True, universal_newlines = False)
+            print('✅: the command of <hexo generate> be executed successfully \n')
             # Hexo服务器的启动不能占用当前进行,易卡顿,所以需创建一个子进程
-            # subprocess.Popen('hexo s', shell=True)
+            subprocess.Popen('hexo s', shell=True)
             # 打开网页
-            # webbrowser.open(self.hexoLocalServerUrl)
-            pass
+            webbrowser.open(self.hexoLocalServerUrl)
+            # pass
 
       ''' GitHub 提交程序 '''
       def gitPush(self, commitMsg):
@@ -184,7 +186,7 @@ class Tools:
           print('⚡: created a new hexo post successfully \n\n\n\n')
           # 运行 Hexo 本地测试程序,即运行命令 hexo clean & hexo generate && hexo server
           tool.hexoTesting()
-          # print('⚡: hexo cleaned && generated and runed hexo server successfully \n\n\n\n')
+          print('⚡: hexo cleaned && generated and runed hexo server successfully \n\n\n\n')
           # 将新添加的文件 Push 到远程 Github Repo, 参入的参数为 commit 的说明信息
           tool.gitPush(gitCommitMsg)
           print('⚡: push these new files to github successfully')
