@@ -1,7 +1,7 @@
 ---
 title: 第 025 天日计划打卡
 excerpt: 🎉 100 天自律计划之第 025 天日计划打卡 !
-date: 2020-09-30 00:00:00
+date: 2020-10-01 00:00:00
 image: /images/2020/100DaysOfPlan/day025/day025Cover.png
 tags: [100DaysOfFitness,100DaysOfCode,100DaysOfEnglish,100DaysOfPlan]
 categories: #设置分类
